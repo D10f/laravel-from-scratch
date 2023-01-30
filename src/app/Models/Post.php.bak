@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+
+class Post
+{
+
+    public function __construct(public $title, public $excerpt, public $slug, public $published, public $body)
+    {
+    }
+
+    public static function all()
+    {
+        // $files = File::files(resource_path('/posts'));
+        // return array_map(fn ($file) => YamlFrontMatter::parseFile($file), $files);
+
+        // One these two options, differences ?
+        // return Cache::rememberForever('posts.all', function () {
+        return cache()->rememberForever('posts.all', function () {
+            return collect(File::files(resource_path('/posts')))
+                ->map(fn($file) => YamlFrontMatter::parseFile($file))
+                ->map(fn($doc) => new Post(
+                    $doc->Title,
+                    $doc->Excerpt,
+                    $doc->Slug,
+                    $doc->Published,
+                    $doc->body()
+                ))
+                // ->sortBy('published')
+                ->sortByDesc('published');
+        });
+    }
+
+    public static function find($slug)
+    {
+        // if (!file_exists($path = resource_path("posts/{$slug}.php"))) {
+        //     throw new ModelNotFoundException();
+        // }
+
+        // Laravel 8 syntax??
+        // return cache()->remember("posts.{$slug}", 1200, fn () => YamlFrontMatter::parseFile($path));
+
+        return static::all()->firstWhere('slug', $slug);
+    }
+
+    public static function findOrFail($slug)
+    {
+        return static::find($slug) ?? throw new ModelNotFoundException();
+    }
+}
