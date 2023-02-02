@@ -15,12 +15,10 @@ services:
       - ./nginx/:/etc/nginx/conf.d/
     ports:
       - 8080:80
-      - 8081:8081
       - 5173:5173
     depends_on:
       - laravel
       - vite
-      - phpmyadmin
 
   laravel:
     build:
@@ -74,13 +72,6 @@ services:
       - db_data:/var/lib/mysql
     env_file:
       - ./src/.env
-
-  phpmyadmin:
-    image: phpmyadmin
-    env_file:
-      - ./src/.env
-    depends_on:
-      - mariadb
 
 volumes:
   db_data: {}
