@@ -31,7 +31,7 @@ Route::get('/', function () {
 });
 
 Route::get('/post/{post}', function (Post $post) {
-    return view('post-article', [
+    return view('post-single', [
         'post' => $post
     ]);
 });
