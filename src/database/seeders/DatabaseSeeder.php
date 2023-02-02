@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $users = User::factory(3)->create();
-        $categories = Category::factory(6)->create();
+        $categories = Category::factory(20)->create();
 
         /**
          * Loop $totalPosts times and extract a random user and category ids

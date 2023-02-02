@@ -26,9 +26,10 @@ Route::get('/', function () {
 
     return view('welcome', [
         #'posts' => Post::all()
-        'posts' => Post::latest()->with('category', 'author')->get()
+        'posts' => Post::latest()->with('category', 'author')->get(),
+        'categories' => Category::all()
     ]);
-});
+})->name('home');
 
 Route::get('/post/{post}', function (Post $post) {
     return view('post-single', [
@@ -38,14 +39,17 @@ Route::get('/post/{post}', function (Post $post) {
 
 Route::get('/categories/{category:slug}', function (Category $category) {
     return view('welcome', [
-        'posts' => $category->posts->load(['category', 'author'])
         // 'posts' => $category->posts
+        'posts' => $category->posts->load(['category', 'author']),
+        'categories' => Category::all(),
+        'currentCategory' => $category
     ]);
-});
+})->name('category');
 
 Route::get('/user/{user:username}', function (User $user) {
     return view('welcome', [
-        'posts' => $user->posts->load(['category', 'author'])
         // 'posts' => $user->posts
+        'posts' => $user->posts->load(['category', 'author']),
+        'categories' => Category::all()
     ]);
 });

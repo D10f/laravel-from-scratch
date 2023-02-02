@@ -1,8 +1,8 @@
-@props(['posts'])
+@props(['posts', 'categories', 'currentCategory'])
 
 <x-layout>
 
-    @include('_header')
+    @include('partials/_post-filter')
 
     <x-post-grid :posts="$posts" />
 </x-layout>
