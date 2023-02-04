@@ -14,6 +14,21 @@ class Post extends Model
      */
     protected $with = ['category', 'author'];
 
+
+    /**
+     * scope[nameOfScope] is how we can build our own queries
+     */
+    public function scopeFilter($query, $filters)
+    {
+        // when is an Eloquent construct that runs a callback function given
+        // a boolean condition
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query
+                ->where('title', 'like', '%' . $search . '%')
+                ->orWhere('body', 'like', '%' . $search . '%');
+        });
+    }
+
     /**
      * Alternative syntax to /post/{post:slug} to retrive posts using route
      * params as the key in the database
