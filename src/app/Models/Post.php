@@ -23,9 +23,26 @@ class Post extends Model
         // when is an Eloquent construct that runs a callback function given
         // a boolean condition
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query
+            $query
                 ->where('title', 'like', '%' . $search . '%')
                 ->orWhere('body', 'like', '%' . $search . '%');
+        });
+
+        // $query->when($filters['category'] ?? false, function ($query, $category) {
+        //     $query->whereExists(function ($query) use ($category) {
+        //         $query
+        //             ->from('categories')
+        //             ->whereColumn('categories.id', 'posts.categoryId')
+        //             ->where('categories.slug', $category);
+        //     });
+        // });
+
+        // Same as above example. whereHas matches the model's accessor with
+        // the same name provided
+        $query->when($filters['category'] ?? false, function ($query, $category) {
+            $query->whereHas('category', function($query) use ($category) {
+                $query->where('slug', $category);
+            });
         });
     }
 
