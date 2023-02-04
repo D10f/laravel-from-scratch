@@ -36,14 +36,15 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('/post/{post}', [PostController::class, 'show']);
 
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('welcome', [
-        // 'posts' => $category->posts
-        'posts' => $category->posts->load(['category', 'author']),
-        'categories' => Category::all(),
-        'currentCategory' => $category
-    ]);
-})->name('category');
+// Route::get('/categories/{category:slug}', function (Category $category) {
+
+//     return view('welcome', [
+//         // 'posts' => $category->posts
+//         'posts' => $category->posts->load(['category', 'author']),
+//         'categories' => Category::all(),
+//         'currentCategory' => $category
+//     ]);
+// })->name('category');
 
 Route::get('/user/{user:username}', function (User $user) {
     return view('welcome', [

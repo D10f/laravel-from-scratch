@@ -29,7 +29,7 @@
     <ul x-show="show" class="py-2 mt-2 absolute bg-gray-200 w-full top-full rounded-xl z-50 overflow-scroll max-h-52" style="display: none;">
         @foreach ($items as $category)
             <x-dropdown-link-item
-                resource="categories"
+                resource="category"
                 :slug="$category->slug"
                 :active="request()->is('categories/' . $category->slug)"
                 {{-- :active="request()->routeIs('category')" --}}

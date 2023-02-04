@@ -10,7 +10,7 @@
 
 <li>
     <a
-        href="/{{ $resource }}/{{ $slug }}"
+        href="/?{{ $resource }}={{ $slug }}"
         class="{{ $classes }}"
     >
         {{ $slot }}
