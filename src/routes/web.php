@@ -18,15 +18,31 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
 
-#    \Illuminate\Support\Facades\DB::listen(function ($query) {
-#        logger($query->sql);
-#    });
+// #    \Illuminate\Support\Facades\DB::listen(function ($query) {
+// #        logger($query->sql);
+// #    });
+
+//     return view('welcome', [
+//         #'posts' => Post::all()
+//         'posts' => Post::latest()->with('category', 'author')->get(),
+//         'categories' => Category::all()
+//     ]);
+// })->name('home');
+
+Route::get('/', function() {
+
+    $posts = Post::latest();
+
+    if (request('search')) {
+        $posts
+            ->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('body', 'like', '%' . request('search') . '%');
+    }
 
     return view('welcome', [
-        #'posts' => Post::all()
-        'posts' => Post::latest()->with('category', 'author')->get(),
+        'posts' => $posts->get(),
         'categories' => Category::all()
     ]);
 })->name('home');
