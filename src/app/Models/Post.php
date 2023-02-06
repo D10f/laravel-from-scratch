@@ -23,9 +23,10 @@ class Post extends Model
         // when is an Eloquent construct that runs a callback function given
         // a boolean condition
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            $query
-                ->where('title', 'like', '%' . $search . '%')
+            $query->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
                 ->orWhere('body', 'like', '%' . $search . '%');
+            });
         });
 
         // $query->when($filters['category'] ?? false, function ($query, $category) {
