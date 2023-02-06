@@ -47,9 +47,9 @@ Route::get('/post/{post}', [PostController::class, 'show']);
 // })->name('category');
 
 Route::get('/user/{user:username}', function (User $user) {
-    return view('welcome', [
+    return view('posts.index', [
         // 'posts' => $user->posts
         'posts' => $user->posts->load(['category', 'author']),
-        'categories' => Category::all()
+        // 'categories' => Category::all()
     ]);
 });

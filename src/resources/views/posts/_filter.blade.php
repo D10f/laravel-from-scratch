@@ -14,11 +14,13 @@
 
         <div class="relative flex lg:inline-flex items-center bg-gray-200 rounded-xl">
 
-            <x-dropdown-menu
-                title="Categories"
-                :items="$categories"
-                :currentCategory="isset($currentCategory) ? $currentCategory : NULL"
-            />
+            <!-- <x-dropdown-menu -->
+            <!--     title="Categories" -->
+            <!--     :items="$categories" -->
+            <!--     :currentCategory="isset($currentCategory) ? $currentCategory : NULL" -->
+            <!-- /> -->
+
+            <x-category-dropdown />
 
         </div>
 

@@ -2,7 +2,7 @@
 
 <x-layout>
 
-    @include('partials/_post-filter')
+    @include('posts._filter')
 
     <x-post-grid :posts="$posts" />
 </x-layout>
