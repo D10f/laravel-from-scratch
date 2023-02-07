@@ -33,8 +33,10 @@ class RegisterController extends Controller
 
         // Option 2 - using mutators in the model
 
-        User::create($attributes);
+        // User::create($attributes);
 
-        return redirect('/');
+        //session()->flash('success', 'Your account has been created');
+
+        return redirect('/')->with('success', 'Account created successfully.');
     }
 }
