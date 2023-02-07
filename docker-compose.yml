@@ -3,75 +3,75 @@ version: '2.4'
 
 services:
 
-    nginx:
-        build:
-          context: .
-          dockerfile: nginx/Dockerfile
-          args:
-            - UID=${UID:-1000}
-            - GID=${GID:-1000}
-        volumes:
-          - ./src:/var/www/html
-          - ./nginx/:/etc/nginx/conf.d/
-        ports:
-          - 8080:80
-          - 5173:5173
-        depends_on:
-          - laravel
-          - vite
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/:/etc/nginx/conf.d/
+    ports:
+      - 8080:80
+      - 5173:5173
+    depends_on:
+      - laravel
+      - vite
 
-    laravel:
-        build:
-          context: .
-          dockerfile: php/Dockerfile
-          target: php
-          args:
-            - UID=${UID:-1000}
-            - GID=${GID:-1000}
-        volumes:
-          - ./src:/var/www/html
-          - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
-        depends_on:
-          - mariadb
+  laravel:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+      target: php
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    depends_on:
+      - mariadb
 
-    artisan:
-        build:
-          context: .
-          dockerfile: php/Dockerfile
-          target: artisan
-          args:
-            - UID=${UID:-1000}
-            - GID=${GID:-1000}
-        volumes:
-          - ./src:/var/www/html
-        depends_on:
-          - mariadb
+  artisan:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+      target: artisan
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mariadb
 
-    composer:
-        build:
-          context: .
-          dockerfile: php/Dockerfile
-          target: composer
-          args:
-            - UID=${UID:-1000}
-            - GID=${GID:-1000}
-        volumes:
-          - ./src:/var/www/html
+  composer:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+      target: composer
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    volumes:
+      - ./src:/var/www/html
 
-    vite:
-        image: node:18-bullseye-slim
-        volumes:
-          - ./src:/var/www/html
-        working_dir: /var/www/html
-        user: node
-        command: sh -c "npm i && ./node_modules/.bin/vite"
+  vite:
+    image: node:18-bullseye-slim
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    user: node
+    command: sh -c "npm i && ./node_modules/.bin/vite"
 
-    mariadb:
-        image: mariadb:10.7
-        volumes:
-          - db_data:/var/lib/mysql
-        env_file:
-          - ./src/.env
+  mariadb:
+    image: mariadb:10.7
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:
+      - ./src/.env
 
 volumes:
-    db_data: {}
+  db_data: {}

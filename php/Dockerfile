@@ -10,7 +10,7 @@ ENV PHP_USER=laravel
 WORKDIR /var/www/html
 
 RUN groupadd -g ${GID} ${PHP_USER} && \
-    useradd -u ${UID} -g ${GID} ${PHP_USER} && \
+    useradd -u ${UID} -g ${GID} -m ${PHP_USER} && \
     sed -i -E "s/^(user|group) = www-data/\1 = ${PHP_USER}/g" /usr/local/etc/php-fpm.d/www.conf
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
