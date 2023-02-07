@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -19,32 +20,10 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-// Route::get('/', function () {
-
-// #    \Illuminate\Support\Facades\DB::listen(function ($query) {
-// #        logger($query->sql);
-// #    });
-
-//     return view('welcome', [
-//         #'posts' => Post::all()
-//         'posts' => Post::latest()->with('category', 'author')->get(),
-//         'categories' => Category::all()
-//     ]);
-// })->name('home');
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('/post/{post}', [PostController::class, 'show']);
-
-// Route::get('/categories/{category:slug}', function (Category $category) {
-
-//     return view('welcome', [
-//         // 'posts' => $category->posts
-//         'posts' => $category->posts->load(['category', 'author']),
-//         'categories' => Category::all(),
-//         'currentCategory' => $category
-//     ]);
-// })->name('category');
 
 Route::get('/user/{user:username}', function (User $user) {
     return view('posts.index', [
@@ -53,3 +32,6 @@ Route::get('/user/{user:username}', function (User $user) {
         // 'categories' => Category::all()
     ]);
 });
+
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store']);

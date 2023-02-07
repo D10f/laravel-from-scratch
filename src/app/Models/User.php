@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
@@ -41,6 +42,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Mutator to automatically hash the password using bcrypt.
+     */
+    public function setPasswordAttribute($password)
+    {
+        // How to use argon2 instead:
+        // $argonDriver = Illuminate\Support\Facades\Hash::createArgonDriver();
+        // $hashedWithArgon = $argonDriver->make($password);
+
+        $this->attributes['password'] = bcrypt($password);
+    }
 
     /**
      *
