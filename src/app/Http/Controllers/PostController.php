@@ -19,7 +19,7 @@ class PostController extends Controller
         // }
 
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request())->get(),
+            'posts' => Post::latest()->filter(request())->simplePaginate(6)->withQueryString(),
         ]);
     }
 
