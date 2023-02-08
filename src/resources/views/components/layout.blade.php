@@ -18,10 +18,20 @@
                 </a>
             </div>
 
-            <div class="mt-8 md:mt-0">
-                <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+            <div class="mt-8 md:mt-0 flex items-center">
+                @auth
+                    <span class="text-xs font-bold uppercase">Welcome back, {{ auth()->user()->name }}</span>
 
-                <a href="/register" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+                    <form action="/logout" method="POST" class="text-xs font-semibold ml-2">
+                        @csrf
+                        <button>Logout</button>
+                    </form>
+                @else
+                    <a href="/register" class="text-xs font-bold uppercase hover:text-blue-400">Register</a>
+                    <a href="/login" class="text-xs font-bold uppercase hover:text-blue-400 ml-2">Login</a>
+                @endif
+
+                <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
                 </a>
             </div>
