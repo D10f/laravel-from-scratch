@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -47,10 +48,17 @@ class DatabaseSeeder extends Seeder
         /**
          * Another method that does the same but shorter
          */
-        Post::factory(15)->create(function() use ($users, $categories) {
+        $posts = Post::factory(15)->create(function() use ($users, $categories) {
             return [
                 'userId' => $users->random()->id,
                 'categoryId' => $categories->random()->id,
+            ];
+        });
+
+        Comment::factory(50)->create(function() use ($users, $posts) {
+            return [
+                'user_id' => $users->random()->id,
+                'post_id' => $posts->random()->id
             ];
         });
     }

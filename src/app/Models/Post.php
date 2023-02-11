@@ -79,4 +79,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'userId', 'id');
     }
+
+    /**
+     * Defines relationship between post and comments
+     *
+     * @return Comment[]
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

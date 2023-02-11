@@ -24,7 +24,7 @@ destroy: stop ## Stops containers and removes named volumes
 	@docker rm -vf ${CONTAINER_NODE} && \
 	@docker rm -vf ${CONTAINER_DATABASE};
 
-down: stop ## Tears down all the service containers 
+down: stop ## Tears down all the service containers
 	@docker compose down;
 
 fresh: destroy build start ## Destroys, rebuilds and restarts all services
@@ -36,7 +36,7 @@ logs: ## Print logs for all running services
 	@docker compose logs -f
 
 mariadb: ## Access the mariadb console
-	@docker exec -it ${CONTAINER_DATABASE} sh -c "mariadb -u laravel -plaravel laravel" 
+	@docker exec -it ${CONTAINER_DATABASE} sh -c "mariadb -u laravel -plaravel laravel"
 
 migrate: ## Runs all database migrations
 	@docker compose run --rm artisan migrate
