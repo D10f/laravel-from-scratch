@@ -9,6 +9,11 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'body',
+        'user_id'
+    ];
+
     /**
      * Creates a relationship between model and a post.
      *

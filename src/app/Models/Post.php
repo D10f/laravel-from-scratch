@@ -83,7 +83,6 @@ class Post extends Model
     /**
      * Defines relationship between post and comments
      *
-     * @return Comment[]
      */
     public function comments()
     {
