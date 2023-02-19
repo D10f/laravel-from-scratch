@@ -14,4 +14,4 @@ RUN groupadd -g ${GID} ${NGINX_USER} && \
 EXPOSE 80
 EXPOSE 5173
 EXPOSE 8000
- 
+
